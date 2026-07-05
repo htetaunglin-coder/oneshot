@@ -37,7 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Landing Page Model Comparison
 
-Generated landing pages across different models and reasoning effort levels.
+Generated landing pages across different models and reasoning effort levels. Each run started from a fresh, unmodified `create-next-app` scaffold (no changes to `globals.css` or any config) — the model was simply prompted to build a landing page on top of it.
 
 | Model | Effort | Preview |
 |---|---|---|
