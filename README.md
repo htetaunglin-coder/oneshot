@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Landing Page Model Comparison
+
+Generated landing pages across different models and reasoning effort levels.
+
+| Model | Effort | Preview |
+|---|---|---|
+| Sonnet | Medium | ![sonnet-medium](docs/landing-page-comparisons/sonnet-medium-landing-page.png) |
+| Sonnet | High | ![sonnet-high](docs/landing-page-comparisons/sonnet-high-landing-page.png) |
+| Sonnet | XHigh | ![sonnet-xhigh](docs/landing-page-comparisons/sonnet-xhigh-landing-page.png) |
+| Sonnet | Max | ![sonnet-max](docs/landing-page-comparisons/sonnet-max-landing-page.png) |
+| Opus | Medium | ![opus-medium](docs/landing-page-comparisons/opus-medium-landing-page.png) |
+| Opus | High | ![opus-high](docs/landing-page-comparisons/opus-high-landing-page.png) |
