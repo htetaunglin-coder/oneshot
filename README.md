@@ -39,6 +39,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Generated landing pages across different models and reasoning effort levels. Each run started from a fresh, unmodified `create-next-app` scaffold (no changes to `globals.css` or any config) — the model was simply prompted to build a landing page on top of it.
 
+### Prompt used
+
+> I want you to go into a separate worktree and look at the landing page folder, and I want you to generate a landing page for it. While generating the landing page, please do not use any skills or any context from conversations we've had in this system before.
+>
+> Rely only on the system prompt and the instructions you were given. Look at the copy, understand the landing page, and generate it in the separate worktree.
+
 | Model | Effort | Preview | Notes |
 |---|---|---|---|
 | Sonnet | Medium | ![sonnet-medium](docs/landing-page-comparisons/sonnet-medium-landing-page.png) | Light theme, no nav bar. Plain centered copy blocks, a numbered 3-step list, and a static FAQ list with no interaction. Simplest layout of the six. |
