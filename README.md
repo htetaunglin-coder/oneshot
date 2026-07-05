@@ -39,11 +39,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Generated landing pages across different models and reasoning effort levels. Each run started from a fresh, unmodified `create-next-app` scaffold (no changes to `globals.css` or any config) — the model was simply prompted to build a landing page on top of it.
 
-| Model | Effort | Preview |
-|---|---|---|
-| Sonnet | Medium | ![sonnet-medium](docs/landing-page-comparisons/sonnet-medium-landing-page.png) |
-| Sonnet | High | ![sonnet-high](docs/landing-page-comparisons/sonnet-high-landing-page.png) |
-| Sonnet | XHigh | ![sonnet-xhigh](docs/landing-page-comparisons/sonnet-xhigh-landing-page.png) |
-| Sonnet | Max | ![sonnet-max](docs/landing-page-comparisons/sonnet-max-landing-page.png) |
-| Opus | Medium | ![opus-medium](docs/landing-page-comparisons/opus-medium-landing-page.png) |
-| Opus | High | ![opus-high](docs/landing-page-comparisons/opus-high-landing-page.png) |
+| Model | Effort | Preview | Notes |
+|---|---|---|---|
+| Sonnet | Medium | ![sonnet-medium](docs/landing-page-comparisons/sonnet-medium-landing-page.png) | Light theme, no nav bar. Plain centered copy blocks, a numbered 3-step list, and a static FAQ list with no interaction. Simplest layout of the six. |
+| Sonnet | High | ![sonnet-high](docs/landing-page-comparisons/sonnet-high-landing-page.png) | Switches to a dark theme and adds numbered-circle steps, a 2x2 bordered feature grid, and a callout box for the trust section. Still no nav bar or FAQ accordion. |
+| Sonnet | XHigh | ![sonnet-xhigh](docs/landing-page-comparisons/sonnet-xhigh-landing-page.png) | Adds a real nav bar (logo + install button), an eyebrow label above the headline, and monospace command chips for the install step. FAQ is still a plain list. |
+| Sonnet | Max | ![sonnet-max](docs/landing-page-comparisons/sonnet-max-landing-page.png) | Fullest Sonnet build: nav with in-page links, dual hero CTAs, narrative section headings ("The problem"), and the only Sonnet tier with an expandable (+/-) FAQ accordion. |
+| Opus | Medium | ![opus-medium](docs/landing-page-comparisons/opus-medium-landing-page.png) | Light theme but sharper copy out of the gate — a punchier headline ("Most AI resume tools lie a little. This one doesn't."), an audience badge, a real pricing card, and a dark CTA footer band. More structure than Sonnet Medium at the same effort tier. |
+| Opus | High | ![opus-high](docs/landing-page-comparisons/opus-high-landing-page.png) | Adds a hero mockup (a fake terminal panel showing the plugin's output), indigo accent color, icon badges on each feature card, and a "Read the source" link. |
+| Opus | Max | ![opus-max](docs/landing-page-comparisons/opus-max-landing-page.png) | Same terminal hero mockup idea as Opus High, refined further: amber accent color, a 4-step "How it works" (vs. 3), icon badges on every feature card, a two-paragraph trust section with an inline GitHub link, and a full nav bar including a GitHub link. Most polished of the seven. |
+
+Across both models, higher effort mainly buys structure (nav bar, FAQ accordion, richer step visuals) rather than new copy ideas. Opus reaches that structure at a lower effort tier than Sonnet does, and from Opus High onward it adds a distinct visual asset (the terminal hero mockup) instead of just reflowing the same sections.
