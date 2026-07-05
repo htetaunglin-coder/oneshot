@@ -43,7 +43,7 @@ Generated landing pages across different models and reasoning effort levels. Eac
 
 > I want you to go into a separate worktree and look at the landing page folder, and I want you to generate a landing page for it. While generating the landing page, please do not use any skills or any context from conversations we've had in this system before.
 >
-> Rely only on the system prompt and the instructions you were given. Look at the copy, understand the landing page, and generate it in the separate worktree.
+> Rely only on the system prompt and the instructions you were given. Look at the copy, understand the product, and generate it in the separate worktree.
 
 | Model | Effort | Preview | Notes |
 |---|---|---|---|
