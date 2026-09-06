@@ -13,9 +13,15 @@ Code lives in the narrowest scope that matches who owns it and who uses it today
 1. **Inline** in the expression that uses it.
 2. **Same file** as its single consumer: a named helper, sub-component, `Props` type, or constant. Naming a thing does not require a new file.
 3. **Feature folder** (`features/<x>/…`) when the code belongs to one feature but not to one file.
-4. **Shared** (`src/lib`, `src/hooks`, `src/components/ui`) when the code is one concept that several features must keep consistent.
+4. **Shared** (`src/lib`, `src/hooks`, `src/components/ui`, `src/constants` for app-wide config such as route maps and flags, `src/test` for test utilities) when the code is one concept that several features must keep consistent.
 
-These are scopes to choose from, not steps to walk. Code whose ownership is already shared goes to the shared scope directly.
+These are scopes to choose from, not steps to walk. Code whose ownership is already shared goes to the shared scope directly. Ownership is who changes the code, not who reads it: many consumers do not make a concept shared.
+
+## Layers
+
+Imports flow one way: shared → features → app. Shared imports only shared. A feature imports shared and itself. `src/app` imports both and owns nothing feature-specific: a route file, a route handler, `middleware.ts`, and the root layout are glue that composes features. Features never import each other. Enforce this with a linter (`eslint-plugin-boundaries` with three element types and one allow-list), and keep this section as the reason.
+
+When a feature or a shared component needs another feature's state, the app layer composes them: it mounts the provider and passes data or a component in as props or `children`. Vercel `patterns-children-over-render-props` (pass markup as children) carries the form. A file that reaches into several features is split per feature or inverted the same way.
 
 ## Two decisions, two questions
 
@@ -61,11 +67,13 @@ When an option like that appears, reassess whether the callers still share one c
 
 ## Per kind
 
-**Components.** A sub-component used once lives in the same file when it makes the parent read top to bottom. A cohesive block that is large enough to hide the page around it gets a feature-local file, still with one consumer. Either way it is defined at module scope, never inside the parent body (Vercel `rerender-no-inline-components`: an inner definition is a new component type on every render and remounts its subtree).
+**Components.** A sub-component used once lives in the same file when it makes the parent read top to bottom. A cohesive block that is large enough to hide the page around it gets a feature-local file, still with one consumer. Either way it is defined at module scope, never inside the parent body (Vercel `rerender-no-inline-components`: an inner definition is a new component type on every render and remounts its subtree). A `"use client"` leaf inside a server component is a runtime boundary and takes its own file.
 
 **Types.** A type belongs to the file that is its source of truth. `Props` belongs to its component. An API contract belongs to the data module that fetches it, and UI code imports it from there with `import type`. Number of readers does not decide ownership, and no parallel definition of the same shape is written to satisfy a folder rule. A `types.ts` exists only for a shape with no owning module.
 
 **Business logic.** Mapping, validation, pricing, and permission calculations are pure functions. They start in the file that calls them and move by the two questions above: to `features/<x>/lib` when separation makes a typical change cheaper to understand, and to the shared scope when the concept is shared. A run of pure functions with a different responsibility from the component around them is a named problem on its own. A derived one-liner (`const isEmpty = items.length === 0`) stays in the component. A pure permission calculation in the UI is a display decision only. Enforcement happens where the framework and repository put authoritative checks.
+
+Domain state and its provider stay with the feature that owns them. Consumers spreading to other features or to shared components does not move it; the app layer composes them (see Layers).
 
 Data access and mutations colocate inside their runtime boundary. A server-only fetcher can live in `features/<x>/api` and be called from a server component. Follow the framework and repository rules for where server code, client code, and mutation entrypoints go. Placement guidance never invents a route handler.
 

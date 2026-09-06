@@ -35,3 +35,33 @@ Skill changed the answer on 02, 10 (report), 13. Both agents agree on 01, 03–0
 | 13 | ✅ | ✅ |
 
 Defects 1 and 2 closed. Untouched cases carried over: 13/13.
+
+## Holdout, run 1 (2026-09-06)
+
+Five cases written by an agent that never saw the rule. Judged against the writer's own answer, a no-skill baseline, and the skill agent's coverage tag.
+
+| Case | Writer | No skill | With skill | Coverage | Verdict |
+|---|---|---|---|---|---|
+| H1 shared undo hook | `src/hooks`, generic, caller passes delete fn + text | same | same | direct | pass |
+| H2 cart context | stays in `features/cart`, public `index.ts` | same | moved to `src/hooks/use-cart.tsx` | by analogy | diverges, see below |
+| H3 signup schema | `features/signup/lib`, list in own file | same | same, list in same file | direct | pass |
+| H4 route paths | `src/lib/routes.ts` | `src/config/routes.ts` | `src/lib/routes.ts` | by analogy | pass |
+| H5 test render helper | `src/test/render.tsx` | same | same | silent | pass |
+
+4/5 agree with both independent opinions.
+
+## H2 finding
+
+Skill agent read "code whose ownership is already shared goes to the shared scope directly" as "three consumers = shared ownership" and moved the cart domain out of its feature. Writer and baseline keep the domain in `features/cart` behind a public entry, which assumes cross-feature imports are allowed. The portfolio's `agent_docs/code-organization.md` forbids feature-to-feature imports, so under that repo rule the skill answer is consistent. Decision needed: public feature entry (A), no cross-feature imports (B), or layered core/leaf (C).
+
+## Run 2 (2026-09-07), H2 only, after the Layers section
+
+| Case | Run 1 | Run 2 |
+|---|---|---|
+| H2 cart context | moved domain to `src/hooks`; header badge in `src/components`; checkout imports `useCart` | provider stays in `features/cart`; `CartBadge` from cart feature passed into `SiteHeader` slot; `OrderSummary` takes props; app-layer client glue in the checkout route segment; no cross-feature import; coverage direct |
+
+Matches the corrected answer key. Holdout total: 5/5.
+
+## Trigger test, run 1 (2026-09-06)
+
+Skill listed by description only, four fresh agents, plain requests, no mention of skills. 4/4 fired, including two prompts with no description keywords. Co-fired with `ponytail` (T3) and `codebase-design` (T4); both agreed with the rule.
