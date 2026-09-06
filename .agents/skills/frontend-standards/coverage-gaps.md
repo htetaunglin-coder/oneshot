@@ -17,3 +17,13 @@ Out of scope, decided
 
 Closed 2026-09-07 by the Layers section and scope edits
 - Cross-feature imports, domain state consumed by several features, route handler as a second consumer, config/constants scope, test utilities scope, `"use client"` leaf in a server component.
+
+## tailwind
+
+Open
+- Existing shadcn primitive vs matching hand-written class string: when `Card` replaces a panel string. Pointed at the shadcn skill; no rule text.
+- `tailwind-merge` configuration for custom theme utilities (`extendTailwindMerge`). Pointed at the shadcn skill.
+- `@theme` token naming (`brand` vs reusing `primary`). Repo convention.
+
+Closed 2026-09-07
+- `@apply` and CSS modules. Layout-contract variables. `@utility` (removed). cva gate at exactly four. Shared look as a responsibility.

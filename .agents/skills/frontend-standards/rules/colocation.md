@@ -13,9 +13,9 @@ Code lives in the narrowest scope that matches who owns it and who uses it today
 1. **Inline** in the expression that uses it.
 2. **Same file** as its single consumer: a named helper, sub-component, `Props` type, or constant. Naming a thing does not require a new file.
 3. **Feature folder** (`features/<x>/…`) when the code belongs to one feature but not to one file.
-4. **Shared** (`src/lib`, `src/hooks`, `src/components/ui`, `src/constants` for app-wide config such as route maps and flags, `src/test` for test utilities) when the code is one concept that several features must keep consistent.
+4. **Shared** when the code is one concept that several features must keep consistent: utilities, hooks, design-system primitives, app-wide config such as route maps and flags, test utilities.
 
-These are scopes to choose from, not steps to walk. Code whose ownership is already shared goes to the shared scope directly. Ownership is who changes the code, not who reads it: many consumers do not make a concept shared.
+Paths in this rule assume `src/features/<x>`, `src/components/ui`, `src/lib`, `src/hooks`. Substitute the repository's equivalents. These are scopes to choose from, not steps to walk. Code whose ownership is already shared goes to the shared scope directly. Ownership is who changes the code, not who reads it: many consumers do not make a concept shared.
 
 ## Layers
 
@@ -28,8 +28,6 @@ When a feature or a shared component needs another feature's state, the app laye
 **Extract** (give it a name, maybe a file): write the problem the separation solves in one sentence. "The parent stops reading top to bottom." "This function needs a test the component cannot host." "The editor is 300 lines of cohesive behavior and drowns the page." The sentence must pass one test: a typical change to this code is now understandable with less context, not more. A real sentence earns the extraction, and one consumer is enough. "It might be reused" is not a problem yet, so the code stays. The same test runs in reverse: several short files that every change has to trace together are consolidated into the file that owns the state. A file path the task itself mandates wins over this rule.
 
 **Share** (move to a scope more than one feature imports): the consumers rely on one concept that must change together. A pricing policy, an auth check, a date format the whole site shows. Two features that need the same policy get one owner in the shared scope, even at two. Two helpers that merely look alike and have different reasons to change stay separate.
-
-Shared placement is decided by ownership, so a repository that sets a count threshold for `src/lib` may disagree with this rule. Follow the repository and say that the conflict exists.
 
 ## File size limit
 
@@ -77,11 +75,11 @@ Domain state and its provider stay with the feature that owns them. Consumers sp
 
 Data access and mutations colocate inside their runtime boundary. A server-only fetcher can live in `features/<x>/api` and be called from a server component. Follow the framework and repository rules for where server code, client code, and mutation entrypoints go. Placement guidance never invents a route handler.
 
-**Tests.** A test file sits beside the module it tests, in a repository that has a test runner. Inside a test, the same rule applies: setup stays next to the assertion that depends on it, so two similar tests show their difference without scrolling. Shared state built in `beforeEach` hides that difference.
+**Tests.** A test file sits beside the module it tests. Inside a test, the same rule applies: setup stays next to the assertion that depends on it, so two similar tests show their difference without scrolling. Shared state built in `beforeEach` hides that difference.
 
 ## Tailwind
 
-Class strings stay inline on the element. A repeated markup pattern becomes a small component with its classes inline. A hoisted className constant is not colocation, it is a name for a string, and the string reads better on the element. Vercel `rendering-hoist-jsx` (static JSX to a module constant for reuse) is a different case and stays allowed.
+Class strings stay on the element. Repetition alone does not extract a component; the extract and share tests above do. The rest is in [tailwind](tailwind.md).
 
 ## Exceptions that skip the scopes
 
