@@ -27,3 +27,19 @@ Open
 
 Closed 2026-09-07
 - `@apply` and CSS modules. Layout-contract variables. `@utility` (removed). cva gate at exactly four. Shared look as a responsibility.
+
+## comments
+
+Open
+- Copy-or-mutate and local-or-UTC on a `Date` helper as questions the signature leaves. Judgment; A1.
+- A number in a comment the reader cannot verify. Left to maintenance; A2.
+- `/** */` on a module-private constant whose only use site is the next line: `//` at the use line. Not in the rule; A6.
+- How far a restructure may go on a frozen branch when an explaining variable is preferred. Colocation question; A3 regression.
+- A config entry (`remotePatterns`) the change makes dead: maintenance speaks about comments only. A3/A6 regression.
+
+Out of scope, decided
+- Code shape of fire-and-forget (`void` vs `.catch`). Not a comment question; C05.
+- A reference with no identifier (an on-call finding): write the reason, skip the anecdote; C09.
+
+Closed 2026-09-07 by run 1 and the holdout
+- Dividers and step labels. Field docs on any type. Hook server behavior in the JSDoc questions. TODO trigger and missing issue. Maintenance scope for untouched comments. Rename or assertion outside the task. Reason-in-PR-only request. Incident references. Fragment as field doc.
