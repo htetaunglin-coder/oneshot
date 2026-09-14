@@ -13,7 +13,7 @@ One skill, `frontend-standards`, with the house rules for React + Next.js + Tail
 | colocation | ~1,290 | 13 training, 5 holdout, 4 trigger | c113c19, f3b60fb |
 | tailwind | ~950 | 9 training, 7 adversarial holdout | 73f6c62 |
 | comments | ~1,600 | 10 training, 7 adversarial holdout | de00843 |
-| file-order | ~1,040 | 8 training, 5 adversarial holdout | see git log |
+| file-order | ~1,040 | 8 training, 5 adversarial holdout | ebefb3a |
 
 Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/comments.md`, `rules/file-order.md`, `coverage-gaps.md`.
 
