@@ -1,6 +1,6 @@
 ---
 name: frontend-standards
-description: Opinionated house rules for React, Next.js, and Tailwind code in a feature-based folder structure, covering what the Vercel skills leave out. Colocation — where a component, type, helper, or test lives, and when to extract or share it. Tailwind — when a class list becomes a map, cva, a token, or a component. Comments — what a comment carries that code cannot, when an export gets JSDoc, the TODO form, and simple-English wording. Use when writing or reviewing frontend components, hooks, feature folders, className props, comments, or JSDoc, and when deciding whether to extract, promote, or share code or styles.
+description: Opinionated house rules for React, Next.js, and Tailwind code in a feature-based folder structure, covering what the Vercel skills leave out. Colocation — where a component, type, helper, or test lives, and when to extract or share it. Tailwind — when a class list becomes a map, cva, a token, or a component. Comments — what a comment carries that code cannot, when an export gets JSDoc, the TODO form, and simple-English wording. File order — the slot for each constant, type, component, sub-component, and helper inside a file. Use when writing or reviewing frontend components, hooks, feature folders, className props, comments, JSDoc, or the layout of a file, and when deciding whether to extract, promote, or share code or styles.
 ---
 
 # Frontend Standards
@@ -20,3 +20,4 @@ Precedence, in order:
 | [colocation](rules/colocation.md) | Narrowest scope that matches ownership today. Extract on a named problem, share on shared ownership. |
 | [tailwind](rules/tailwind.md) | Classes stay on the element. Repetition is evidence, not a command. `cn` → map → `cva` by count. |
 | [comments](rules/comments.md) | Code says the what and the how first. A comment is the residue: why, why-not, warning, contract, coupling, reference. |
+| [file-order](rules/file-order.md) | Newspaper order: imports, shared constants and types, main export, sub-components, helpers. A part's own constant sits above it. `function` declarations keep it top-down. |

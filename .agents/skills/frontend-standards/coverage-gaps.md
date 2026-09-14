@@ -43,3 +43,16 @@ Out of scope, decided
 
 Closed 2026-09-07 by run 1 and the holdout
 - Dividers and step labels. Field docs on any type. Hook server behavior in the JSDoc questions. TODO trigger and missing issue. Maintenance scope for untouched comments. Rename or assertion outside the task. Reason-in-PR-only request. Incident references. Fragment as field doc.
+
+## file-order
+
+Open
+- Two constants in the top section read by different parts: first use decides; watch for a case where first use is unclear.
+- Mixed style after a focused change to an arrow-function file: accepted; the reply names it.
+
+Out of scope, decided
+- Import order: formatter or import sorter.
+- Order between sibling exports in a non-component module (`src/lib/format.ts`): first use or alphabetical, repo convention.
+
+Closed 2026-09-14 by run 1 and the holdout
+- Helper order. Compound components. In-file precedent. `generate*` exports. `cva` with one reader. Registry files in `src/components/ui`.
