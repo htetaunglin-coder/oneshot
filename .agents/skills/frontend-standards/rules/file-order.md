@@ -19,7 +19,7 @@ A file reads like a newspaper. The headline is the export the file is named afte
 
 A file with several peer exports, such as a compound component (`Tabs`, `TabsList`, `TabsTrigger`), has no single headline: the root comes first, then its parts in the order a consumer nests them.
 
-A blank line separates declarations. Nothing else marks the sections; no divider comments (see [comments](comments.md)).
+Nothing marks the sections; no divider comments (see [comments](comments.md)).
 
 ```tsx
 "use client";
@@ -58,11 +58,11 @@ function MoreButton({ count, onClick }: { count: number; onClick: () => void }) 
 
 A constant or a type goes to the top section when the main export reads it, or when two or more parts of the file read it. A constant or a type that one sub-component or one helper reads sits directly above that part, as `MORE_LABEL` does above `MoreButton`. When a second reader appears, the declaration moves up to the top section in the same change. The colocation rule decides when it leaves the file (see [colocation](colocation.md)).
 
-An existing file that breaks this order is not a precedent. A new declaration takes its slot by this rule and is a `function` declaration. An existing declaration moves, or converts from an arrow `const` to a `function`, when the change touches it or when the task is the file's structure; otherwise it stays and the reply names it, the same focused-change rule as the colocation file size limit.
+An existing file that breaks this order is not a precedent. A new declaration takes its slot by this rule; a new component, hook, or helper is a `function` declaration. An existing declaration moves, or converts from an arrow `const` to a `function`, when the change touches it or when the task is the file's structure; otherwise it stays and the reply names it, the same focused-change rule as the colocation file size limit.
 
 ## Declarations that let the order hold
 
-Components, hooks, and helpers are `function` declarations. A `function` declaration is hoisted with its body, so a caller sits above its callee and the file stays top-down. A `const` arrow function is in the temporal dead zone until its line runs, so it cannot sit below a top-level reader.
+Components, hooks, and helpers are `function` declarations. A `function` declaration is hoisted with its body, so a caller sits above its callee and the file stays top-down. A `const` arrow function is in the temporal dead zone until its line runs, so it cannot sit below a reader that runs at import time.
 
 Function bodies read at call time. A `function` component may read a `const` declared below it, because the component runs at render, after the module has evaluated. Top-level expressions run at import time. `const styles = cva(...)`, `const Ctx = createContext(...)`, `export default memo(Component)`, and any wrapper call sit below every `const` and `class` they read. When such a wrapper is needed, the wrapped component is still a `function` declaration above it, and the wrapper is the last line of that component's slot.
 
@@ -70,17 +70,17 @@ Types and interfaces are erased and may sit anywhere; they follow the ownership 
 
 ## Exports
 
-An export is written at the declaration: `export function`, `export const`, `export type`. The file carries no export list at the bottom. The exception is `src/components/ui`: a file there keeps the registry's shape, its bottom export list included, so a later `shadcn diff` or reinstall reads cleanly; a new export there joins the list, and its declaration takes its slot by nesting order. A default export exists only where the framework reads it (`page.tsx`, `layout.tsx`, `route.ts`), and it is the main export in slot 4. Framework config exports, the route segment config (`dynamic`, `revalidate`) and every `generate*` export (`generateMetadata`, `generateStaticParams`), and `metadata` itself, are configuration and sit in slot 2.
+An export is written at the declaration: `export function`, `export const`, `export type`. The file carries no export list at the bottom. The exception is `src/components/ui`: a file there keeps the registry's shape, its bottom export list included, so a later `shadcn diff` or reinstall reads cleanly; a new export there joins the list, and its declaration takes its slot by nesting order. A default export exists only where the framework reads it: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, and the other App Router special files. `route.ts` exports named HTTP methods and has no default. The default export is the main export in slot 4. Framework config exports, the route segment config (`dynamic`, `revalidate`) and every `generate*` export (`generateMetadata`, `generateStaticParams`), and `metadata` itself, are configuration and sit in slot 2.
 
-Static values hoisted out of a component (JSX, regexes, default non-primitive props) follow Vercel `rendering-hoist-jsx` (hoist static elements to a module constant) and `js-hoist-regexp` (regex literal at module scope); this rule only says where they sit: slot 2 or above their one reader.
+Static values hoisted out of a component follow the Vercel rules: `rendering-hoist-jsx` (static elements to a module constant), `js-hoist-regexp` (regex literal at module scope), `rerender-memo-with-default-value` (a non-primitive default prop to a constant). This rule only says where they sit: slot 2 or above their one reader.
 
 ## Inside a component
 
-Hooks, then derived values, then handlers, then early returns, then JSX. Hooks stay above every early return (Rules of Hooks). A value is declared on the line before its first use, not at the top of the function.
+Hooks, then derived values, then handlers, then early returns, then JSX. A value is declared on the line before its first use, not at the top of the function.
 
 ## Tooling
 
-The order relies on hoisting, so the linter guards the one hazard, a `const` read before its line, and leaves `function` declarations alone: ESLint `no-use-before-define` with `{ functions: false, classes: true, variables: true, allowNamedExports: false }`, or `@typescript-eslint/no-use-before-define` with the same plus `typedefs: false, ignoreTypeReferences: true`. Biome `correctness/noInvalidUseBeforeDeclaration` reports variables and classes and allows function declarations. Import order belongs to the formatter or import sorter, not to this rule. `perfectionist/sort-modules` orders by kind and name and conflicts with the ownership slot, so it stays off.
+The order relies on hoisting, so the linter guards the one runtime hazard, a `const` or `class` read at import time before its line, and allows both a `function` declaration below its caller and a function body that reads a `const` declared below it: ESLint `no-use-before-define` with `{ functions: false, classes: true, variables: false, allowNamedExports: false }` (`variables: false` ignores a reference from an inner function scope and still reports one in the same scope), or `@typescript-eslint/no-use-before-define` with the same plus `typedefs: false, ignoreTypeReferences: true`. Biome `correctness/noInvalidUseBeforeDeclaration` has the same behavior with no options. Import order belongs to the formatter or import sorter, not to this rule. `perfectionist/sort-modules` orders by kind and name and conflicts with the ownership slot, so it stays off. Checked 2026-09 against Next 16.2, ESLint 9.39, Biome 2.
 
 ## Sources
 

@@ -6,7 +6,7 @@ tags: abstraction, colocation, components, types, business-logic, tests
 
 # Colocate by ownership
 
-Code lives in the narrowest scope that matches who owns it and who uses it today. It moves when a concrete problem is named, never because a count was reached.
+Code lives in the narrowest scope that matches who changes it today. It moves when a concrete problem is named, never because a count was reached.
 
 ## Scopes
 
@@ -19,7 +19,7 @@ Paths in this rule assume `src/features/<x>`, `src/components/ui`, `src/lib`, `s
 
 ## Layers
 
-Imports flow one way: shared → features → app. Shared imports only shared. A feature imports shared and itself. `src/app` imports both and owns nothing feature-specific: a route file, a route handler, `middleware.ts`, and the root layout are glue that composes features. Features never import each other. Enforce this with a linter (`eslint-plugin-boundaries` with three element types and one allow-list), and keep this section as the reason.
+Imports flow one way: shared → features → app. Shared imports only shared. A feature imports shared and itself. `src/app` imports both and owns nothing feature-specific: a route file, a route handler, `proxy.ts`, and the root layout are glue that composes features. Features never import each other. Enforce this with a linter (`eslint-plugin-boundaries` with three element types and one allow-list), and keep this section as the reason.
 
 When a feature or a shared component needs another feature's state, the app layer composes them: it mounts the provider and passes data or a component in as props or `children`. Vercel `patterns-children-over-render-props` (pass markup as children) carries the form. A file that reaches into several features is split per feature or inverted the same way.
 

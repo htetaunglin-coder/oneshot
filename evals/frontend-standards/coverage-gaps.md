@@ -1,6 +1,6 @@
 # Coverage gaps
 
-Places the rules are silent or answered by analogy. Source: eval agents' "unclear or missing" reports. An entry leaves when a rule covers it or a decision says it stays out.
+Maintainer file, outside the skill. Places the rules are silent or answered by analogy. Source: eval agents' "unclear or missing" reports. An entry leaves when a rule covers it or a decision says it stays out.
 
 ## colocation
 
@@ -21,6 +21,8 @@ Closed 2026-09-07 by the Layers section and scope edits
 ## tailwind
 
 Open
+- "The variant type is exported" when only the `Props` type is exported and `VariantProps` is not: reads as not exported. Regression 2026-09-16, T04.
+- Opacity modifier on a variable read, `bg-(--x)/80`: allowed by Tailwind 4; not stated. A6.
 - Existing shadcn primitive vs matching hand-written class string: when `Card` replaces a panel string. Pointed at the shadcn skill; no rule text.
 - `tailwind-merge` configuration for custom theme utilities (`extendTailwindMerge`). Pointed at the shadcn skill.
 - `@theme` token naming (`brand` vs reusing `primary`). Repo convention.
@@ -33,7 +35,6 @@ Closed 2026-09-07
 Open
 - Copy-or-mutate and local-or-UTC on a `Date` helper as questions the signature leaves. Judgment; A1.
 - A number in a comment the reader cannot verify. Left to maintenance; A2.
-- `/** */` on a module-private constant whose only use site is the next line: `//` at the use line. Not in the rule; A6.
 - How far a restructure may go on a frozen branch when an explaining variable is preferred. Colocation question; A3 regression.
 - A config entry (`remotePatterns`) the change makes dead: maintenance speaks about comments only. A3/A6 regression.
 
@@ -47,6 +48,8 @@ Closed 2026-09-07 by run 1 and the holdout
 ## file-order
 
 Open
+- Slot for a type that reads a `cva` value (`VariantProps<typeof x>`): after the `cva`, since it reads it; not stated. T04.
+- A hand rewrite of a `src/components/ui` file: converts to registry shape or not. Not stated. B5.
 - Two constants in the top section read by different parts: first use decides; watch for a case where first use is unclear.
 - Mixed style after a focused change to an arrow-function file: accepted; the reply names it.
 

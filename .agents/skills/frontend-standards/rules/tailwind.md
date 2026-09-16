@@ -27,7 +27,7 @@ const CARD = "rounded-md border p-4";
 
 ## The ladder
 
-Pick the lowest rung that holds the decision.
+Check the rows from the bottom; the first row whose situation matches is the tool.
 
 | Situation | Tool |
 |---|---|
@@ -36,7 +36,7 @@ Pick the lowest rung that holds the decision.
 | One axis, any count; or two axes with four or fewer named options in total | Variant map, one per axis |
 | Two or more axes with five or more named options in total, or a compound rule where two axes together change a class, or the variant type is exported | `cva` |
 
-Rows are checked from the bottom: an exported variant type or a compound rule goes to `cva` whatever the count. The five-option line is the house gate, chosen for determinism.
+An exported variant type or a compound rule goes to `cva` whatever the count. The five-option line is the house gate, chosen for determinism: options are summed across axes, so two axes of two (four options) are two maps and three by two (five options) is `cva`.
 
 A variant map is an object of complete class strings keyed by state. It encodes a decision; a lone constant does not.
 
@@ -48,7 +48,7 @@ const tone = {
 <div className={cn("rounded-md border p-4", tone[kind])} />
 ```
 
-Every class name exists whole in source. `bg-${color}-500` is the one construction Tailwind cannot scan; a map or `cva` replaces it.
+Every class name exists whole in source. A class name assembled from parts, `bg-${color}-500`, is one Tailwind cannot scan; a map or `cva` replaces it.
 
 ## `cn()` order
 
@@ -58,13 +58,13 @@ Base classes, then conditionals, then the consumer's `className` last. With the 
 className={cn("inline-flex rounded-md px-3", isActive ? "bg-accent" : "bg-muted", className)}
 ```
 
-The `shadcn` skill carries the rest: prefer an existing variant over a `className` override, semantic tokens over raw colors, and the merge configuration `cn()` needs when the theme adds custom utilities.
+The `shadcn` skill carries the rest: prefer an existing variant over a `className` override, semantic tokens over raw colors. `tailwind-merge` resolves `@theme` colors without configuration; a custom `@utility` name, or an ambiguous one such as a custom `text-*` size, needs `extendTailwindMerge` in the project's `cn()`.
 
 ## Three kinds of variable
 
 A variable is declared where its value is decided. Readers consume it and never set it.
 
-- **Runtime value**: a plain `style` prop for an unconditional property on one element, `style={{ height: `${pct}%` }}`. It becomes a variable when a state, breakpoint, or pseudo-element must read it, `style={{ "--hover-color": c }}` with `hover:bg-(--hover-color)`, or when a second element reads it, in which case the variable sits on the nearest shared ancestor and each reader consumes it, `w-(--progress)` or `[width:var(--progress)]`.
+- **Runtime value**: a plain `style` prop for an unconditional property on one element, `style={{ height: `${pct}%` }}`. It becomes a variable when a state, breakpoint, or pseudo-element must read it, `style={{ "--hover-color": c } as React.CSSProperties}` with `hover:bg-(--hover-color)` (React's `CSSProperties` has no custom-property key, so the object is cast or the type is augmented once), or when a second element reads it, in which case the variable sits on the nearest shared ancestor and each reader consumes it, `w-(--progress)` or `[width:var(--progress)]`.
 - **Layout contract**: one element's geometry that other elements depend on, such as header height, prompt-area height, content max width. The variable goes on the nearest ancestor that contains everyone who needs it, `style={{ "--header-height": "3.5rem" }}`, or as classes when the value changes per breakpoint, `[--header-height:3.5rem] md:[--header-height:4rem]`, or in `:root` when that ancestor is the page. The element it describes reads it, `h-(--header-height)`, and every dependent reads the same variable, `pt-(--header-height)`, so the number exists once. A wrapping layout that changes the geometry overrides it on its own element, `{ "--header-height": "0px" }` when embedded. An element whose size is only known at runtime writes it to the owning ancestor's element through a ref, `layoutRef.current.style.setProperty("--prompt-area-height", `${h}px`)`, and removes it on unmount. `document.documentElement` is the target only when the page itself is the owner. This replaces prop drilling and context for a value that is geometry, not state.
 - **Design token** the whole app shares: declare it in `@theme` so Tailwind generates the utility, then use the utility. A token exists when the value has shared ownership, the same test as any shared code. In a shadcn repo the token follows the `shadcn` skill's `:root` plus `@theme inline` form.
 
@@ -74,7 +74,7 @@ A button look on a `<label>` or an `<a>` is one visual contract on different ele
 
 ## Tooling
 
-Class order belongs to the formatter: `prettier-plugin-tailwindcss` with `tailwindFunctions: ["cn", "cva"]`. The rule text carries no ordering convention.
+Class order belongs to the formatter: `prettier-plugin-tailwindcss` with `tailwindFunctions: ["cn", "cva"]`. The rule text carries no ordering convention. Checked 2026-09 against Tailwind 4, tailwind-merge 3.7, React types 19.2.
 
 ## Sources
 

@@ -15,7 +15,7 @@ One skill, `frontend-standards`, with the house rules for React + Next.js + Tail
 | comments | ~1,600 | 10 training, 7 adversarial holdout | de00843 |
 | file-order | ~1,040 | 8 training, 5 adversarial holdout | ebefb3a |
 
-Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/comments.md`, `rules/file-order.md`, `coverage-gaps.md`.
+Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/comments.md`, `rules/file-order.md`. Maintainer files stay here in `evals/`: `coverage-gaps.md`, this README.
 
 ## Method per rule
 
@@ -57,4 +57,8 @@ Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/com
 
 ## Open gaps
 
-See `.agents/skills/frontend-standards/coverage-gaps.md`.
+See `evals/frontend-standards/coverage-gaps.md`.
+
+## Reviews taken (2026-09-16)
+
+Third review, all four rules. Technical corrections applied: `route.ts` has no default export; `middleware.ts` is `proxy.ts` on Next 16; default non-primitive props point at `rerender-memo-with-default-value`; `style={{ "--x": v }}` needs a `CSSProperties` cast; `extendTailwindMerge` is needed for custom `@utility` and ambiguous names, not `@theme` colors; `no-use-before-define` runs with `variables: false` so a function body may read a later `const`, matching Biome. Ambiguities fixed: "who changes it"; import-time reader; ladder scan direction and the five-option sum; conflict clause covers Vercel rules. No-ops cut: hooks above early return, blank-line sentence. Kept on purpose: test-beside-module sentence, comments filler list, tailwind hoisted-string example (the user's original complaint). `coverage-gaps.md` moved here; colocation fixtures moved under `colocation/`. Version stamps added to the Tooling sections. Regression after the edits: colocation 06, H2; tailwind T04, A3, A6; file-order F07, B4. 7/7, all direct.
