@@ -75,3 +75,17 @@ Out of scope, decided
 
 Closed 2026-09-17 by run 1 and two holdout rounds
 - Focused change. Business durations. Library arguments. `??` sentinel. Same digits, different meaning. Subset of a union. Naming precedent. Union-typed comparison. Enum request. One-concept lib file. Sibling tie-break. JSX plus class value. Test expected output.
+
+## conditional-render
+
+Open
+- A file shown only in part in a task: report the changed lines. Eval harness question, not rule text. R-run.
+- Whether a four-line sub-component counts as "small" when a requester asks to keep a line tiny: judgment. S3.
+- What counts as a branch toward "four or more" in a precedence chain: each `if` including the final default. Judgment; regression note.
+
+Out of scope, decided
+- `switch` vs map when branch props differ: sub-component with early returns. Stated.
+
+Closed 2026-09-17 by run 1 and the holdout
+- Ladder scan direction: both tailwind and conditional-render now check rows from the top, override sentence first; "rung" removed. Fifth review.
+- Boolean `&&` default. Precedence chains. `return null` at the end of an owning sub-component. Map vs sub-component by props. Hook needing a guard value. Text ternary. Over-rung block as precedent.

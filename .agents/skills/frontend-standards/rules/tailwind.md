@@ -27,7 +27,7 @@ const CARD = "rounded-md border p-4";
 
 ## The ladder
 
-Check the rows from the bottom; the first row whose situation matches is the tool.
+An exported variant type or a compound rule goes to `cva` whatever the count. Otherwise check the rows from the top; the first row whose situation matches is the tool.
 
 | Situation | Tool |
 |---|---|
@@ -36,7 +36,7 @@ Check the rows from the bottom; the first row whose situation matches is the too
 | One axis, any count; or two axes with four or fewer named options in total | Variant map, one per axis |
 | Two or more axes with five or more named options in total, or a compound rule where two axes together change a class, or the variant type is exported | `cva` |
 
-An exported variant type or a compound rule goes to `cva` whatever the count. The five-option line is the house gate, chosen for determinism: options are summed across axes, so two axes of two (four options) are two maps and three by two (five options) is `cva`.
+The five-option line is the house gate, chosen for determinism: options are summed across axes, so two axes of two (four options) are two maps and three by two (five options) is `cva`.
 
 A variant map is an object of complete class strings keyed by state. It encodes a decision; a lone constant does not.
 

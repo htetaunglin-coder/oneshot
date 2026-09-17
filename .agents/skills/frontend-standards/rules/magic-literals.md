@@ -34,7 +34,7 @@ A literal on a line the change touches takes its name in the same change. A lite
 
 ## Naming
 
-`CONSTANT_CASE` is for constant data at module level: a primitive, an array, a plain object, `PAGE_SIZE`, `STATUS_LABEL`, `SORT_OPTIONS`. A value produced by a call keeps its conventional `camelCase` name, `styles = cva(...)`, `ThemeContext = createContext(...)`, `dollarFormat = new Intl.NumberFormat(...)`. A `const` inside a function is `camelCase`, whatever it holds. A module-level object that is mutated is not a constant and is `camelCase`. An existing file's `camelCase` constants are not a precedent, even when the request asks for consistency with the file: the new one is `CONSTANT_CASE`, the old ones convert when the change touches them, and otherwise the reply names them.
+`CONSTANT_CASE` is for constant data at module level: a primitive, an array, a plain object, `PAGE_SIZE`, `STATUS_LABEL`, `SORT_OPTIONS`. A value produced by a call keeps its conventional `camelCase` name, `styles = cva(...)`, `ThemeContext = createContext(...)`, `dollarFormat = new Intl.NumberFormat(...)`. A `const` inside a function is `camelCase`, whatever it holds, except a component picked from a map, `const View = STATUS_VIEW[status]`, which is `PascalCase` so JSX reads it as a component. A module-level object that is mutated is not a constant and is `camelCase`. An existing file's `camelCase` constants are not a precedent, even when the request asks for consistency with the file: the new one is `CONSTANT_CASE`, the old ones convert when the change touches them, and otherwise the reply names them.
 
 ## Strings with a fixed set of values
 
