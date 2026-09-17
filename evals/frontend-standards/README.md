@@ -14,8 +14,9 @@ One skill, `frontend-standards`, with the house rules for React + Next.js + Tail
 | tailwind | ~950 | 9 training, 7 adversarial holdout | 73f6c62 |
 | comments | ~1,600 | 10 training, 7 adversarial holdout | de00843 |
 | file-order | ~1,040 | 8 training, 5 adversarial holdout | ebefb3a |
+| magic-literals | ~1,270 | 8 training, 13 adversarial holdout in three rounds | pending |
 
-Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/comments.md`, `rules/file-order.md`. Maintainer files stay here in `evals/`: `coverage-gaps.md`, this README.
+Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/comments.md`, `rules/file-order.md`, `rules/magic-literals.md`. Maintainer files stay here in `evals/`: `coverage-gaps.md`, this README.
 
 ## Method per rule
 
@@ -38,6 +39,7 @@ Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/com
 - Tailwind: classes stay on the element. Repetition is evidence, not a command. Ladder `className` → `cn()` → variant map → `cva`. `cva` gate: five or more options across two or more axes, or compound rule, or exported type (house convention). No `@utility` escape, no spacing rule (styling, not organization). Three kinds of variable: runtime value, layout contract, design token.
 - Tests: file beside module, setup beside assertion, no `beforeEach` shared state.
 - File order: newspaper order. Directive and imports; constants then types the main export or two or more parts read; import-time expressions below every `const` they read; main export; sub-components in render order; helpers by first call. A one-reader constant or type sits above its reader and moves up when a second reader appears. `function` declarations for components, hooks, helpers. Exports at the declaration; `src/components/ui` keeps the registry shape. Existing files are not precedent; focused-change rule applies. Research in `research/frontend-standards/file-order/`.
+- Magic literals: inline when the meaning is on the line (0, 1, `-1` from `indexOf`, formula-obvious, mechanism durations, library constants and arguments, protocol codes, one default, test fixture inputs). Named when decoded, a business limit, the same meaning twice, a compared or stored string, cross-file, or a reused JSX design number. Name says meaning and unit. Module-level `CONSTANT_CASE` including objects; no precedent from camelCase files. `as const` array plus derived union; no `enum`, even on request. Research in `research/frontend-standards/magic-numbers/`.
 - Comments: code takes the information first (name, explaining variable, union, assertion, extraction); the residue is a comment when a first-time reader would have to reconstruct it. Six kinds: why, why-not, warning, contract, coupling, reference. JSDoc on an export only when the signature leaves a question; never types in tags. TODO = work + trigger + issue when one exists; a TODO stays until done, obsolete, or abandoned. Simple English, about 20 words. Reviewer softenings taken: no forced extraction, precision comments allowed below the code, TODO never deleted for a missing issue.
 - Reviews from other agents: take the technical corrections, reject policy reversals of the user's decisions.
 
@@ -52,7 +54,7 @@ Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/com
 ## Next, in order
 
 1. state: zustand vs context vs URL vs server. TkDodo posts already read (Working with Zustand; Zustand and React Context: context is DI, store for state; useCallback posts). wshobson five-row table.
-2. magic numbers, conditional-render ladder (early return → sub-component → IIFE last), error and loading, testing, business logic.
+2. conditional-render ladder (early return → sub-component → IIFE last), error and loading, testing, business logic.
 3. Move the 1,000-line check to a linter (`max-lines` on ESLint; Biome has none). Add `DECISIONS.md` per rule change.
 
 ## Open gaps
@@ -62,3 +64,7 @@ See `evals/frontend-standards/coverage-gaps.md`.
 ## Reviews taken (2026-09-16)
 
 Third review, all four rules. Technical corrections applied: `route.ts` has no default export; `middleware.ts` is `proxy.ts` on Next 16; default non-primitive props point at `rerender-memo-with-default-value`; `style={{ "--x": v }}` needs a `CSSProperties` cast; `extendTailwindMerge` is needed for custom `@utility` and ambiguous names, not `@theme` colors; `no-use-before-define` runs with `variables: false` so a function body may read a later `const`, matching Biome. Ambiguities fixed: "who changes it"; import-time reader; ladder scan direction and the five-option sum; conflict clause covers Vercel rules. No-ops cut: hooks above early return, blank-line sentence. Kept on purpose: test-beside-module sentence, comments filler list, tailwind hoisted-string example (the user's original complaint). `coverage-gaps.md` moved here; colocation fixtures moved under `colocation/`. Version stamps added to the Tooling sections. Regression after the edits: colocation 06, H2; tailwind T04, A3, A6; file-order F07, B4. 7/7, all direct.
+
+## Review taken (2026-09-17), magic-literals
+
+Fourth review, claims verified by the reviewer against ESLint 9.39.4, tsc with zod 3 and 4, Biome docs. Gate misfires fixed: platform strings and `""` inline; array indexes inline and the 0/1 row wins over the duplicate row; formula row narrowed to unit conversion or identity, a rate or fee takes a name; a default that is a limit enforced elsewhere takes a name. Contradictions fixed: tailwind example `tone` → `TONE`; `CONSTANT_CASE` scoped to constant data, call results keep camelCase; file-order example `MORE_LABEL` replaced with `MAX_LABEL_CHARS`; `CSSProperties` cast added to the variable snippet. Technical: ESLint allows JSX numbers (rule text and research row corrected); the option recipe removed, since the rule cannot encode the formula exception. Trims: comparison-to-function sentence, render-only-string clause, "the union types the props", THREE example compressed. Kept: none of the reviewer's trims were refused. Two new holdout rounds requested by the reviewer: platform strings, business default, formula vs rate (N11 to N13).

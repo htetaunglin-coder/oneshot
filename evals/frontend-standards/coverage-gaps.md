@@ -59,3 +59,19 @@ Out of scope, decided
 
 Closed 2026-09-14 by run 1 and the holdout
 - Helper order. Compound components. In-file precedent. `generate*` exports. `cva` with one reader. Registry files in `src/components/ui`.
+
+## magic-literals
+
+Open
+- Where the `as const` array lives when a feature `types.ts` already holds the type: the owning module takes the array and the type derives there; `types.ts` keeps no runtime value. Stated; watch for friction. N7.
+- Exporting a private constant from an implementation for a test: allowed when the test asserts against it; not stated. N8.
+- A derived constant (`HEIGHT = WIDTH * 9 / 16`): named beside its source; not stated. N9 regression.
+- A unit conversion factor (`1024` bytes per KB): formula-obvious with a named variable, else named; judgment. M01 regression.
+- A mechanism factor or ratio, `waitMs * 2`, `16 / 9`: inline once as a formula; named when the business owns it. Not a row; N13, N9 round 3.
+
+Out of scope, decided
+- Query-key segments inside a query factory: inline; the factory is the name.
+- HTTP status codes: inline.
+
+Closed 2026-09-17 by run 1 and two holdout rounds
+- Focused change. Business durations. Library arguments. `??` sentinel. Same digits, different meaning. Subset of a union. Naming precedent. Union-typed comparison. Enum request. One-concept lib file. Sibling tie-break. JSX plus class value. Test expected output.

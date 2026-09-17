@@ -41,11 +41,11 @@ An exported variant type or a compound rule goes to `cva` whatever the count. Th
 A variant map is an object of complete class strings keyed by state. It encodes a decision; a lone constant does not.
 
 ```tsx
-const tone = {
+const TONE = {
   info: "border-blue-200 bg-blue-50 text-blue-900",
   danger: "border-red-200 bg-red-50 text-red-900",
 };
-<div className={cn("rounded-md border p-4", tone[kind])} />
+<div className={cn("rounded-md border p-4", TONE[kind])} />
 ```
 
 Every class name exists whole in source. A class name assembled from parts, `bg-${color}-500`, is one Tailwind cannot scan; a map or `cva` replaces it.

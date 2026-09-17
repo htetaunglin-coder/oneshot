@@ -43,20 +43,20 @@ export function TagList({ tags, className }: TagListProps) {
   );
 }
 
+const MAX_LABEL_CHARS = 12;
+
 function Tag({ label }: { label: string }) {
-  return <li className="rounded-full border px-2 text-xs">{label}</li>;
+  return <li className="rounded-full border px-2 text-xs">{label.slice(0, MAX_LABEL_CHARS)}</li>;
 }
 
-const MORE_LABEL = "more";
-
 function MoreButton({ count, onClick }: { count: number; onClick: () => void }) {
-  return <button onClick={onClick}>+{count} {MORE_LABEL}</button>;
+  return <button onClick={onClick}>+{count} more</button>;
 }
 ```
 
 ## Ownership decides the slot
 
-A constant or a type goes to the top section when the main export reads it, or when two or more parts of the file read it. A constant or a type that one sub-component or one helper reads sits directly above that part, as `MORE_LABEL` does above `MoreButton`. When a second reader appears, the declaration moves up to the top section in the same change. The colocation rule decides when it leaves the file (see [colocation](colocation.md)).
+A constant or a type goes to the top section when the main export reads it, or when two or more parts of the file read it. A constant or a type that one sub-component or one helper reads sits directly above that part, as `MAX_LABEL_CHARS` does above `Tag`. When a second reader appears, the declaration moves up to the top section in the same change. The colocation rule decides when it leaves the file (see [colocation](colocation.md)).
 
 An existing file that breaks this order is not a precedent. A new declaration takes its slot by this rule; a new component, hook, or helper is a `function` declaration. An existing declaration moves, or converts from an arrow `const` to a `function`, when the change touches it or when the task is the file's structure; otherwise it stays and the reply names it, the same focused-change rule as the colocation file size limit.
 
