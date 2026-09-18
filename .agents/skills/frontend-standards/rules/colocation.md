@@ -36,8 +36,6 @@ When a feature or a shared component needs another feature's state, the app laye
 3. A file already over the limit may take a focused change without restructuring, and the size is reported. When the task touches a block that the two questions above would extract, the extraction happens first and the change lands in the new file.
 4. When meeting the limit would force unrelated restructuring or a worse separation, the conflict is surfaced instead of the split.
 
-The number makes the size check consistent. Choosing what to extract still follows the two questions above.
-
 ## Options that branch on the caller
 
 An option is fine when it describes the abstraction's own behavior. `variant="destructive"` on a button is a presentation choice the button owns. An option is evidence of a wrong abstraction when it makes shared code branch on who is calling.

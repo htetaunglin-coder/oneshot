@@ -20,7 +20,7 @@ A comment is the residue after the code has been made to say it. Before a commen
 
 A local rename or an explaining variable is inside any task that touches the function. A rename of an exported name or an assertion changes more than the comment would: the rename touches every caller, and the assertion turns wrong output into a crash. When that change is outside the task, the comment is the stop, and the rename or the assertion is named in the reply.
 
-What is left passes one test: delete the comment. When a first-time reader recovers everything it said from the code in front of them, it stays deleted. When they must reconstruct it, by tracing other files, by re-measuring a trade-off, or by guessing at a reason, the comment stays. Henney's line: comment what the code *cannot* say, not what it *does not* say.
+What is left passes one test: delete the comment. When a first-time reader recovers everything it said from the code in front of them, it stays deleted. When they must reconstruct it, by tracing other files, by re-measuring a trade-off, or by guessing at a reason, the comment stays.
 
 A comment describes the code as it is, never the edit that produced it. Git holds the history, so commented-out code is deleted and "changed X to Y" lines are deleted.
 
@@ -41,7 +41,7 @@ The why lives in the code, beside the line it explains. A commit message repeats
 
 A comment sits at a different level from the code it describes. Above it, the comment states the goal or the reason: `// Compute once; this runs on every keystroke.` sits above `useMemo`. Below it, the comment adds precision the code lacks: a unit, an inclusive or exclusive end, the meaning of a sentinel. There the exact identifier is repeated when it removes doubt. A comment at the same level repeats the code: `// Memoize the result` over `useMemo` fails the gate. Dividers, banners, and step labels (`// ---- handlers ----`, `// Step 2: build payload`) are the same level as the code and leave; the function name or the block order carries the structure.
 
-A block that needs a section comment is a candidate for the colocation context test. When extraction passes the test, the function name replaces the comment. When it fails, the block stays and one sentence above it states what the block achieves. This is the case for the essential algorithm buried under validation and logging, a call path that crosses files, or code shaped by a measured optimization.
+A block that needs a section comment is a candidate for the colocation context test. When extraction passes the test, the function name replaces the comment. When it fails, the block stays and one sentence above it states what the block achieves.
 
 ## Doc comments
 
@@ -49,7 +49,7 @@ A block that needs a section comment is a candidate for the colocation context t
 
 A JSDoc block goes on an export when the signature leaves the caller a question: a unit, a range, a side effect, a precondition, what happens on failure, what a hook returns where the caller cannot see (the server render, before hydration), or `@deprecated` with the replacement named. The name and the types answer the rest, so an export whose signature answers every question has no block.
 
-A function's summary is one verb phrase in the third person: `/** Formats cents as USD for display. */`. A property or a type is summarized as a noun phrase: `/** Amount in cents. */`. Types never appear in a JSDoc tag; TypeScript owns them. A `@param` or `@returns` line exists only when it adds a fact the type lacks. The fields of a type, props included, are documented on the field, where hover shows them, and only the fields that leave a question; a field doc carries a why when the field's placement needs one. A component takes no block that lists its props.
+Types never appear in a JSDoc tag; TypeScript owns them. A `@param` or `@returns` line exists only when it adds a fact the type lacks. The fields of a type, props included, are documented on the field, where hover shows them, and only the fields that leave a question; a field doc carries a why when the field's placement needs one. A component takes no block that lists its props.
 
 ```tsx
 // Incorrect: restates the signature
@@ -82,11 +82,11 @@ Comments are read more often than written, and by people whose first language ma
 
 ## Maintenance
 
-A change to a line re-reads the comments above it and beside it. A comment the change makes false is edited in the same change; a comment the change makes unnecessary is deleted in the same change. A comment elsewhere in the file that fails the gate and that the change does not touch is left and named in the reply, the same focused-change rule as the colocation file size limit. A wrong comment costs more than none.
+A change to a line re-reads the comments above it and beside it. A comment the change makes false is edited in the same change; a comment the change makes unnecessary is deleted in the same change. A comment elsewhere in the file that fails the gate and that the change does not touch is left and named in the reply, the same focused-change rule as the colocation file size limit.
 
 ## Tooling
 
-Linters hold parts of this rule, and only parts. `jsdoc/informative-docs` flags a doc that restates the name. `jsdoc/no-types` flags a type in a tag. `unicorn/expiring-todo-comments` reads a machine-checkable condition in brackets, `TODO [2027-01-01]` or `TODO [-legacy-parser]`, and fails when it is met; it cannot read a prose trigger. `no-warning-comments` reports every TODO, FIXME, or XXX with no view of whether an issue is attached. The issue reference, the delete test, and the wording are review work. Biome has no equivalent rule. The rule text carries no comment-style convention beyond the `//` and `/** */` split.
+Linters hold parts of this rule, and only parts. `jsdoc/informative-docs` flags a doc that restates the name. `jsdoc/no-types` flags a type in a tag. `unicorn/expiring-todo-comments` reads a machine-checkable condition in brackets, `TODO [2027-01-01]` or `TODO [-legacy-parser]`, and fails when it is met; it cannot read a prose trigger. `no-warning-comments` reports every TODO, FIXME, or XXX with no view of whether an issue is attached. The issue reference, the delete test, and the wording are review work. Biome has no equivalent rule.
 
 ## Sources
 

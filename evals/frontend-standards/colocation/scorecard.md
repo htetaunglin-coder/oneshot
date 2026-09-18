@@ -65,3 +65,11 @@ Matches the corrected answer key. Holdout total: 5/5.
 ## Trigger test, run 1 (2026-09-06)
 
 Skill listed by description only, four fresh agents, plain requests, no mention of skills. 4/4 fired, including two prompts with no description keywords. Co-fired with `ponytail` (T3) and `codebase-design` (T4); both agreed with the rule.
+
+## Trim pass (2026-09-18), regression
+
+Cut: the size-check consistency summary under File size limit. With skill on the trimmed text, fresh agent, opencode runner (not Opus 5; directional):
+
+| Case | With skill |
+|---|---|
+| 11 700-line mixed | ✅ export functions to a feature `lib` module, JSON beside CSV, preferences form left with reason; direct |

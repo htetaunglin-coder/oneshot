@@ -74,3 +74,17 @@ Regression with skill after the review edits (rows 2, 3, 6, 8; Guards; nested-pr
 | tailwind A3 two axes, three options | ✅ two maps, direct |
 
 5/5. Final: training 8/8 both; holdout with skill 5/5, without 2/5, same model.
+
+## Trim pass (2026-09-18), regression
+
+Cut: the ladder intro's last-resort clause, the React quote in Extraction, the map intro line, the IIFE prose section and its `switch` sentence. With skill on the trimmed text, fresh agent per case, opencode runner (not Opus 5; directional):
+
+| Case | With skill |
+|---|---|
+| S1 dashboard body states | ✅ sub-component with early returns, IIFE removed; direct |
+| S2 long enterprise block | ✅ hoisted variable, no new component; direct |
+| S4 return null from child | ✅ presence moved to the parent, child guard removed; direct |
+| R05 order status cancelled | ✅ sub-component with early returns; direct |
+| R06 comment editor counter | ✅ module-level function, state inside, counter; direct |
+
+R06's reply omitted the remount reason the key's rationale names; the Extraction clause was restored, which re-attaches the `rerender-no-inline-components` citation in Sources to text. All five pass on the restored text.

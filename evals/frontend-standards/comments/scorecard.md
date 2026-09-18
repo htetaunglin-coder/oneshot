@@ -64,3 +64,11 @@ Four sentences added (rename or assertion outside the task, reason-in-PR request
 | A7 precision vs redundant | ✅ three deleted, four kept, direct |
 
 No regressions. 4/4.
+
+## Trim pass (2026-09-18), regression
+
+Cut: the Henney line, the extraction-failure examples, the JSDoc summary grammar, "A wrong comment costs more than none", the comment-style boundary line. With skill on the trimmed text, fresh agent, opencode runner (not Opus 5; directional):
+
+| Case | With skill |
+|---|---|
+| C08 section dividers | ✅ dividers and step labels gone, validation inline, no new comment; direct |

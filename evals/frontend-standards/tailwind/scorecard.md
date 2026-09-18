@@ -57,3 +57,11 @@ Four sentences changed (runtime write target, variable trigger, cn wording, ladd
 | A7 header height contract (new) | ✅ variable on shell, by analogy | ✅ variable in :root |
 
 No regressions. A6 and A7 are no-ops: the model reaches for the variable by default. Kept as ownership guardrails. Closed from A7: responsive declaration form; one read syntax, `(--x)` shorthand, bracket only inside `calc()`.
+
+## Trim pass (2026-09-18), regression
+
+Cut: the Tailwind-guidance sentence in Repetition is evidence; the "replaces prop drilling and context" sentence in Layout contract. With skill on the trimmed text, fresh agent, opencode runner (not Opus 5; directional):
+
+| Case | With skill |
+|---|---|
+| A1 five files, one class string | ✅ class appended in place in all five files, no constant or component; direct |

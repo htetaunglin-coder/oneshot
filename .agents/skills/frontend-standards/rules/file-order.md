@@ -6,7 +6,7 @@ tags: file-order, declarations, hoisting, constants, types, exports
 
 # File order: top-down by importance
 
-A file reads like a newspaper. The headline is the export the file is named after; the detail that serves it follows, most important first. A reader who stops after the first screen knows what the file is for.
+A file reads like a newspaper. The headline is the export the file is named after; the detail that serves it follows, most important first.
 
 ## The order
 
@@ -18,8 +18,6 @@ A file reads like a newspaper. The headline is the export the file is named afte
 6. Helpers, in the order a reader meets their first call, reading the file top-down. Slot order wins over call order: a helper the main export calls before it renders a sub-component still sits in slot 6.
 
 A file with several peer exports, such as a compound component (`Tabs`, `TabsList`, `TabsTrigger`), has no single headline: the root comes first, then its parts in the order a consumer nests them.
-
-Nothing marks the sections; no divider comments (see [comments](comments.md)).
 
 ```tsx
 "use client";
@@ -66,7 +64,7 @@ Components, hooks, and helpers are `function` declarations. A `function` declara
 
 Function bodies read at call time. A `function` component may read a `const` declared below it, because the component runs at render, after the module has evaluated. Top-level expressions run at import time. `const styles = cva(...)`, `const Ctx = createContext(...)`, `export default memo(Component)`, and any wrapper call sit below every `const` and `class` they read. When such a wrapper is needed, the wrapped component is still a `function` declaration above it, and the wrapper is the last line of that component's slot.
 
-Types and interfaces are erased and may sit anywhere; they follow the ownership rule. An `enum` emits code and follows the `const` rule.
+Types and interfaces are erased and may sit anywhere; they follow the ownership rule.
 
 ## Exports
 

@@ -58,3 +58,11 @@ Run B, after the training edits and the registry exception:
 | B5 tabs.tsx in `components/ui` | ✅ list kept, `TabsIndicator` in nesting order |
 
 No regressions. Final: training with skill 8/8, without 7/8; holdout with skill 5/5, without 2/5 on the corrected keys (B1 and B5 pass by default).
+
+## Trim pass (2026-09-18), regression
+
+Cut: the first-screen rationale, the divider cross-reference, the `enum` fallback sentence. With skill on the trimmed text, fresh agent, opencode runner (not Opus 5; directional):
+
+| Case | With skill |
+|---|---|
+| B4 follow the existing placement | ✅ new config exports in slot 2 above the page; old `metadata` and `toTitle` left and named; direct |

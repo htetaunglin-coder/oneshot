@@ -6,7 +6,7 @@ tags: conditional-rendering, early-return, ternary, sub-component, iife, jsx
 
 # Conditional rendering: the ladder
 
-A branch in JSX takes the first row that holds it. Each later row trades locality for room; the IIFE is the last row and is reached only when every row before it has failed.
+A branch in JSX takes the first row that holds it.
 
 ## The ladder
 
@@ -42,7 +42,7 @@ A number or a string on the left of `&&` renders `0` or the string itself; Verce
 
 ## Extraction
 
-A branch becomes a sub-component when it has state, hooks, or handlers of its own, or when the markup inside it nests a second condition that chooses an element; a ternary that picks a string, `{enforced ? " (enforced)" : null}`, is text, not a branch, and does not count. A hook moves into the sub-component when the sub-component is its only reader; otherwise the value is a prop. The React docs' line: "too much nested conditional markup, consider extracting child components." The sub-component is a `function` declaration below the parent (see [file-order](file-order.md)); a component defined inside another component is Vercel `rerender-no-inline-components`, remounted on every render.
+A branch becomes a sub-component when it has state, hooks, or handlers of its own, or when the markup inside it nests a second condition that chooses an element; a ternary that picks a string, `{enforced ? " (enforced)" : null}`, is text, not a branch, and does not count. A hook moves into the sub-component when the sub-component is its only reader; otherwise the value is a prop. The sub-component is a `function` declaration below the parent (see [file-order](file-order.md)); a component defined inside another component is Vercel `rerender-no-inline-components`, remounted on every render.
 
 Extraction on a count of lines alone fails the colocation context test (see [colocation](colocation.md)). A branch that is only long, with no state and no nested condition, is a variable before the JSX.
 
@@ -50,7 +50,7 @@ A branch chain that reads a mode prop, `variant === "compact" ? … : variant ==
 
 ## The map
 
-Content keyed by a value is a lookup, not a chain. The map is a module constant when every branch is static JSX (Vercel `rendering-hoist-jsx`), or a record of components when a branch takes props:
+The map is a module constant when every branch is static JSX (Vercel `rendering-hoist-jsx`), or a record of components when a branch takes props:
 
 ```tsx
 const STATUS_VIEW: Record<Status, ComponentType<{ order: Order }>> = {
@@ -61,12 +61,6 @@ const STATUS_VIEW: Record<Status, ComponentType<{ order: Order }>> = {
 const View = STATUS_VIEW[order.status];
 return <View order={order} />;
 ```
-
-A `switch` that returns JSX lives in a helper function or a sub-component, never inline in the render.
-
-## The IIFE
-
-An IIFE is a function body with no name, placed where a value is expected. It is reached when a branch needs statements, the block fails the context test for extraction, and a variable before the JSX would sit a screen away from the element it fills. When the IIFE is written, it holds one branch and nothing else. When it grows a second condition or a hook, it is a sub-component.
 
 ## Tooling
 

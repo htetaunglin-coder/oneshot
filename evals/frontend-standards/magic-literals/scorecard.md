@@ -82,3 +82,11 @@ Review verified by running ESLint, tsc, and Biome docs. Four gate misfires fixed
 3/3 both. Regression on N1, N9, M02, M06 with the edited text: 4/4, all direct. Rule change from this run: a `"use server"` owner cannot export a constant, so the shared value goes to a feature lib module.
 
 Final: training 8/8 with skill; holdouts 13 cases, with skill 13/13, without 11/13. The rule changes behavior on N6 (naming under precedent) and N8 (test fixtures); the rest is guardrail.
+
+## Trim pass (2026-09-18), regression
+
+Cut: the `z.enum(SORT_ORDERS)` sentence in Strings. With skill on the trimmed text, fresh agent, opencode runner (not Opus 5; directional):
+
+| Case | With skill |
+|---|---|
+| N7 enum by request | ✅ `as const` array plus derived union in a feature lib, dropdown iterates, no enum; direct; the `"all"` sentinel took a shared name (key allows) |

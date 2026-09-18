@@ -10,14 +10,14 @@ One skill, `frontend-standards`, with the house rules for React + Next.js + Tail
 
 | Rule | Words | Evals | Commit |
 |---|---|---|---|
-| colocation | ~1,290 | 13 training, 5 holdout, 4 trigger | c113c19, f3b60fb |
-| tailwind | ~950 | 9 training, 7 adversarial holdout | 73f6c62 |
-| comments | ~1,600 | 10 training, 7 adversarial holdout | de00843 |
-| file-order | ~1,040 | 8 training, 5 adversarial holdout | ebefb3a |
-| magic-literals | ~1,270 | 8 training, 13 adversarial holdout in three rounds | 5fe8f73 |
-| conditional-render | ~1,100 | 8 training, 5 adversarial holdout | 15955b2 |
-| state | ~230 | 5 probe, control first; 2 regression | pending |
-| error-loading (probe, no rule) | 0 | 5 probe, control 5/5 | pending |
+| colocation | ~1,370 | 13 training, 5 holdout, 4 trigger | c113c19, f3b60fb, fb5e3c1 |
+| tailwind | ~990 | 9 training, 7 adversarial holdout | 73f6c62 |
+| comments | ~1,500 | 10 training, 7 adversarial holdout | de00843 |
+| file-order | ~1,070 | 8 training, 5 adversarial holdout | ebefb3a |
+| magic-literals | ~1,280 | 8 training, 13 adversarial holdout in three rounds | 5fe8f73 |
+| conditional-render | ~1,060 | 8 training, 5 adversarial holdout | 15955b2 |
+| state | ~235 | 5 probe, control first; 2 regression | 399ace1 |
+| error-loading (probe, no rule) | 0 | 5 probe, control 5/5 | 399ace1 |
 
 Skill folder: `SKILL.md`, `rules/colocation.md`, `rules/tailwind.md`, `rules/comments.md`, `rules/file-order.md`, `rules/magic-literals.md`, `rules/conditional-render.md`, `rules/state.md`. Maintainer files stay here in `evals/`: `coverage-gaps.md`, this README.
 
@@ -60,8 +60,8 @@ A probe comes first when the rule would be a tool pick rather than a code shape 
 
 ## Next, in order
 
-1. Trim pass is the last item. Business logic closed by delta: domain policy is never this skill, seam shapes are colocation by the Share test, component APIs are Vercel `composition-patterns` (see coverage-gaps). Testing dropped: too broad for the time. Error and loading closed: probe 5/5 by default, no text. State is closed: probe 4/5 by default, one sentence added, tool picks parked as repository decisions (see coverage-gaps, state).
-2. Tooling closed: every rule's Tooling section names ESLint and Biome as examples with a version stamp and leaves the repository's linter in charge; `DECISIONS.md` dropped, this README holds the decisions.
+1. No open rule work. New rules start from a captured failure in a real project (probe first, control only). Business logic closed by delta: domain policy is never this skill, seam shapes are colocation by the Share test, component APIs are Vercel `composition-patterns` (see coverage-gaps). Testing dropped: too broad for the time. Error and loading closed: probe 5/5 by default, no text. State is closed: probe 4/5 by default, one sentence added, tool picks parked as repository decisions (see coverage-gaps, state).
+2. Trim pass done (2026-09-18): 7,838 → 7,509 words across the seven rules, regression 10/10 (evidence in each scorecard). Tooling closed: every rule's Tooling section names ESLint and Biome as examples with a version stamp and leaves the repository's linter in charge; `DECISIONS.md` dropped, this README holds the decisions.
 
 ## Open gaps
 
@@ -86,3 +86,7 @@ Sixth review. Blocker: `SKILL.md` description was 1,134 characters against the A
 ## Review taken (2026-09-18), tooling and business logic
 
 Seventh review. Factual fix: Biome has `style/noExcessiveLinesPerFile` (2.3.12, `maxLines` default 300, off by default); the colocation Tooling sentence that said Biome has no line-count rule is corrected and the stamp reads Biome 2.3. Refinement taken: business logic split into domain policy (never this skill) and seam shapes (already colocation by the Share test); reopen only on a captured failure on a seam shape. Endorsed: close without a probe; a best-practices section would be the only part the no-op test cannot score.
+
+## Trim pass (2026-09-18)
+
+No-op trim across the seven rules: 7,838 → 7,496 words, 7,509 after one clause restored. Cuts: rationale a source list already carries (Henney line, React quote, Tailwind guidance, first-screen sentence, size-check summary), duplicated guardrails (`switch` sentence, divider cross-reference, `enum` fallback), the IIFE prose section (its row keeps "one branch, one `if` at most"), and the `z.enum` sentence. Restoration: the remount reason in conditional-render's Extraction, because the R06 key's rationale names it and Sources still cites the Vercel ID. Regression with skill, fresh agent per touched rule, 10/10: S1, S2, S4, R05, R06, C08, N7, A1, B4, colocation 11. Ran on the opencode runner, not Opus 5; directional, re-run on Opus 5 at the next window. Evidence in each rule's scorecard.
