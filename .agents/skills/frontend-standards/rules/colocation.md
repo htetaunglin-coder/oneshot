@@ -71,7 +71,7 @@ When an option like that appears, reassess whether the callers still share one c
 
 **Business logic.** Mapping, validation, pricing, and permission calculations are pure functions. They start in the file that calls them and move by the two questions above: to `features/<x>/lib` when separation makes a typical change cheaper to understand, and to the shared scope when the concept is shared. A run of pure functions with a different responsibility from the component around them is a named problem on its own. A derived one-liner (`const isEmpty = items.length === 0`) stays in the component. A pure permission calculation in the UI is a display decision only. Enforcement happens where the framework and repository put authoritative checks.
 
-Domain state and its provider stay with the feature that owns them. Consumers spreading to other features or to shared components does not move it; the app layer composes them (see Layers).
+Domain state and its provider stay with the feature that owns them. Consumers spreading to other features or to shared components does not move it; the app layer composes them (see Layers). How the store is created, per request, is the state rule (see [state](state.md)).
 
 Data access and mutations colocate inside their runtime boundary. A server-only fetcher can live in `features/<x>/api` and be called from a server component. Follow the framework and repository rules for where server code, client code, and mutation entrypoints go. Placement guidance never invents a route handler.
 

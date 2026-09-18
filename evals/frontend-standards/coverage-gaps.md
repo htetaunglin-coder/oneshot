@@ -4,6 +4,9 @@ Maintainer file, outside the skill. Places the rules are silent or answered by a
 
 ## colocation
 
+Decided 2026-09-18
+- Feature-to-feature import for a session or auth store: none needed. By the Share test an auth check is one concept several features keep consistent, so the store is shared scope (`src/lib`, `src/hooks`). Seen in state probe P1.
+
 Open
 - App-layer client glue (a `"use client"` file that reads one feature's hook and feeds another feature's props): lives in the route segment beside `page.tsx`. Not yet in the rule. H2 run 2.
 - `import type` across features: default is no; the consumer declares the prop shape it needs. Not yet in the rule. H2 run 2.
@@ -89,3 +92,19 @@ Out of scope, decided
 Closed 2026-09-17 by run 1 and the holdout
 - Ladder scan direction: both tailwind and conditional-render now check rows from the top, override sentence first; "rung" removed. Fifth review.
 - Boolean `&&` default. Precedence chains. `return null` at the end of an owning sub-component. Map vs sub-component by props. Hook needing a guard value. Text ternary. Over-rung block as precedent.
+
+## state
+
+Decided 2026-09-18, short rule file
+- Probe first, control only: 4/5 by model default (derive in render, props to state, server data as cache, URL for shareable filters). Evidence in `state/probe/scorecard.md`. This question does not come back to planning unless a new failure is captured.
+- The one failure, request data in a module-level store, took one sourced sentence, now `rules/state.md` (~230 words, own file for disclosure and the human index). Server-data and pointer sections were cut as no-ops after P2 passed without them.
+- Parked permanently as repository decisions, not house standards: Zustand vs context vs Jotai; one store vs many; actions key; URL library (nuqs vs `useSearchParams`); form library; store file name.
+- Research kept in `research/frontend-standards/state/` for a later rule if a project produces a real case.
+
+## error-loading
+
+Decided 2026-09-18, no rule file
+- Probe, control only: 5/5 by model default (redirect outside `try`, production message redaction, boundary around the widget, `Suspense` around the slow part, `notFound()` for a missing entity). Evidence in `error-loading/probe/scorecard.md`. Closed unless a new failure is captured.
+- Version facts recorded for later fixtures: Next 16.2 `error.tsx` receives `unstable_retry`; `unstable_catchError` from `next/error`; `notFound()` throws `NEXT_HTTP_ERROR_FALLBACK;404`; a streamed `not-found` returns 200 with `noindex`.
+- Parked as repository or design decisions: skeleton vs spinner, toast vs inline, empty-state wording, a11y live regions. Placement of error, loading, and empty components is colocation.
+- Research kept in `research/frontend-standards/error-loading/`.
