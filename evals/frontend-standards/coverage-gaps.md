@@ -108,3 +108,11 @@ Decided 2026-09-18, no rule file
 - Version facts recorded for later fixtures: Next 16.2 `error.tsx` receives `unstable_retry`; `unstable_catchError` from `next/error`; `notFound()` throws `NEXT_HTTP_ERROR_FALLBACK;404`; a streamed `not-found` returns 200 with `noindex`.
 - Parked as repository or design decisions: skeleton vs spinner, toast vs inline, empty-state wording, a11y live regions. Placement of error, loading, and empty components is colocation.
 - Research kept in `research/frontend-standards/error-loading/`.
+
+## business-logic
+
+Decided 2026-09-18, no rule, no probe
+- Domain policy (money in minor units, dates and timezones, rounding, tax, permission enforcement): never this skill. Repository or domain docs own it; a house pick here binds every repo to one domain convention, the same harm as a state tool pick.
+- Seam shapes (one validation schema imported by client and server, DTO to view-model mapping at the data boundary, where the authoritative check lives): in charter and already covered, colocation Business logic (pure, placement, display vs enforcement) and the Share test (one concept two runtimes keep consistent gets one owner). Delta near zero.
+- Component API half (data passing, dumb components, variants): Vercel `composition-patterns`.
+- Reopen condition: a captured failure in a real project, on a seam shape only. A probe of money, time, or rounding can find failures this skill is forbidden to fix.

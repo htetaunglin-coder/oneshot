@@ -60,8 +60,8 @@ A probe comes first when the rule would be a tool pick rather than a code shape 
 
 ## Next, in order
 
-1. Business logic and data passing: delta check only, probe if a shape is found. Testing dropped: too broad for the time. Error and loading closed: probe 5/5 by default, no text. State is closed: probe 4/5 by default, one sentence added, tool picks parked as repository decisions (see coverage-gaps, state).
-2. Move the 1,000-line check to a linter (`max-lines` on ESLint; Biome has none). Add `DECISIONS.md` per rule change.
+1. Trim pass is the last item. Business logic closed by delta: domain policy is never this skill, seam shapes are colocation by the Share test, component APIs are Vercel `composition-patterns` (see coverage-gaps). Testing dropped: too broad for the time. Error and loading closed: probe 5/5 by default, no text. State is closed: probe 4/5 by default, one sentence added, tool picks parked as repository decisions (see coverage-gaps, state).
+2. Tooling closed: every rule's Tooling section names ESLint and Biome as examples with a version stamp and leaves the repository's linter in charge; `DECISIONS.md` dropped, this README holds the decisions.
 
 ## Open gaps
 
@@ -82,3 +82,7 @@ Fifth review, claims verified by the reviewer against eslint-plugin-react 7.37.5
 ## Review taken (2026-09-18), state
 
 Sixth review. Blocker: `SKILL.md` description was 1,134 characters against the Agent Skills cap of 1,024; trimmed to 471, per-rule summaries dropped from the field (the table carries them), trigger terms kept. State findings: P1 key scored a reason the rule never asks for, now recorded not scored; P1 fixture had `features/reports` importing `features/session`, corrected to shared scope and re-run (✅ direct); `"use client"` added to the state.md snippet. Reviewer verified the fourth and fifth review fixes in the files. Process endorsed: probe first, control only, bar written before the run.
+
+## Review taken (2026-09-18), tooling and business logic
+
+Seventh review. Factual fix: Biome has `style/noExcessiveLinesPerFile` (2.3.12, `maxLines` default 300, off by default); the colocation Tooling sentence that said Biome has no line-count rule is corrected and the stamp reads Biome 2.3. Refinement taken: business logic split into domain policy (never this skill) and seam shapes (already colocation by the Share test); reopen only on a captured failure on a seam shape. Endorsed: close without a probe; a best-practices section would be the only part the no-op test cannot score.
